@@ -1,23 +1,19 @@
 class lotl:
-    def __init__(self,data,a=-1,verbose=False):
+    def __init__(self,data,nth=-1):
         self.data = data
-        self.a = a
-        self.verbose = verbose
+        self.nth = nth
 
     def chain(self):
         hits = []
         for i in range(len(self.data)):
             for j in range(len(self.data[i])):
                 hits.append(self.data[i][j])
-        return hits;
-            
+        return hits
+    
     def flatten(self):
         new_data = self.data
-        if self.a == -1:
+        if self.nth == -1:
             while True:
-                if self.verbose:
-                    print(f"{new_data}\n")
-
                 if isinstance(new_data, dict):
                     new_data = list(new_data.items())
                     
@@ -49,10 +45,7 @@ class lotl:
                 else:
                     break
         else:
-            for i in range(self.a):
-                if self.verbose:
-                    print(f"{new_data}\n")
-                    
+            for i in range(self.nth):
                 if isinstance(new_data, dict):
                     new_data = list(new_data.items())
 
