@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lotl"
-version = "0.0.3"
+version = "0.0.4"
 authors = [
   { name="Invizabel" },
 ]
-description = "lotl is a stl manipulation tool"
+description = "lotl is a data science library"
 readme = "README.md"
 license = { file="LICENSE.txt" }
 requires-python = ">=3.7"
