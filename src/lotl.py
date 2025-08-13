@@ -22,7 +22,7 @@ class lotl:
                     new_data = list(new_data.items())
                     
                 if isinstance(new_data[0], list) or isinstance(new_data[0], tuple):
-                    new_data = list(TheSilent(new_data).chain())
+                    new_data = list(lotl(new_data).chain())
 
                 if any([True if isinstance(i,dict) else False for i in new_data]):
                     add = []
@@ -57,7 +57,7 @@ class lotl:
                     new_data = list(new_data.items())
 
                 if isinstance(new_data[0], list) or isinstance(new_data[0], tuple):
-                    new_data = list(TheSilent(new_data).chain())
+                    new_data = list(lotl(new_data).chain())
 
                 if any([True if isinstance(i,dict) else False for i in new_data]):
                     add = []
