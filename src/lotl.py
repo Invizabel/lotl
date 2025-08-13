@@ -14,23 +14,8 @@ class lotl:
         new_data = self.data
         if self.nth == -1:
             while True:
-                if isinstance(new_data, dict):
-                    new_data = list(new_data.items())
-                    
-                if isinstance(new_data[0], list) or isinstance(new_data[0], tuple):
+                if isinstance(new_data[0],list) or isinstance(new_data[0],tuple):
                     new_data = list(lotl(new_data).chain())
-
-                if any([True if isinstance(i,dict) else False for i in new_data]):
-                    add = []
-                    for i in new_data:
-                        if isinstance(i,dict):
-                            add += list(i.items())
-
-                        else:
-                            add.append(i)
-
-                    new_data = list(add[:])
-
                 if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
                     add = []
                     for i in new_data:
@@ -41,38 +26,20 @@ class lotl:
                             add.append(i)
 
                     new_data = list(add[:])
-
                 else:
                     break
         else:
             for i in range(self.nth):
-                if isinstance(new_data, dict):
-                    new_data = list(new_data.items())
-
-                if isinstance(new_data[0], list) or isinstance(new_data[0], tuple):
+                if isinstance(new_data[0],list) or isinstance(new_data[0],tuple):
                     new_data = list(lotl(new_data).chain())
-
-                if any([True if isinstance(i,dict) else False for i in new_data]):
-                    add = []
-                    for i in new_data:
-                        if isinstance(i,dict):
-                            add += list(i.items())
-
-                        else:
-                            add.append(i)
-                    new_data = list(add[:])
-
                 if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
                     add = []
                     for i in new_data:
                         if isinstance(i,list) or isinstance(i,tuple):
                             add += i
-
                         else:
                             add.append(i)
-
                     new_data = list(add[:])
-
         return new_data
 
     def mean(self):
