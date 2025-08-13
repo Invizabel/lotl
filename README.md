@@ -1,14 +1,14 @@
-\# lotl is a data science library
+# lotl is a data science library
 
-\#
+#
 
-\# from lotl import \*
+# from lotl import *
 
-\#
+#
 
-\# chain = lotl(<list or tuple>).chain()
+# chain = lotl(array).chain()
 
-\# flatten = lotl(<list or tuple>,nth=0).flatten()
+# flatten = lotl(array,nth=0).flatten()
 
-\# mean = lotl(<list or tuple>).mean()
+# mean = lotl(array).mean()
 
