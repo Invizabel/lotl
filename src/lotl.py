@@ -14,24 +14,18 @@ class lotl:
         new_data = self.data
         if self.nth == -1:
             while True:
-                if isinstance(new_data[0],list) or isinstance(new_data[0],tuple):
-                    new_data = list(lotl(new_data).chain())
                 if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
                     add = []
                     for i in new_data:
                         if isinstance(i,list) or isinstance(i,tuple):
                             add += i
-
                         else:
                             add.append(i)
-
                     new_data = list(add[:])
                 else:
                     break
         else:
-            for i in range(self.nth):
-                if isinstance(new_data[0],list) or isinstance(new_data[0],tuple):
-                    new_data = list(lotl(new_data).chain())
+            for _ in range(self.nth):
                 if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
                     add = []
                     for i in new_data:
@@ -40,12 +34,39 @@ class lotl:
                         else:
                             add.append(i)
                     new_data = list(add[:])
+                else:
+                    break
         return new_data
 
     def mean(self):
         return sum(self.data) / len(self.data)
 
+    def nested(self):
+        count = 0
+        new_data = self.data
+        if self.nth == -1:
+            while True:
+                if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
+                    count += 1
+                    add = []
+                    for i in new_data:
+                        if isinstance(i,list) or isinstance(i,tuple):
+                            add += i
+                        else:
+                            add.append(i)
+                    new_data = list(add[:])
+                else:
+                    break
+        return count
+
     def slope(self):
         x = [i for i in range(1,len(self.data)+1)]
         hits = lotl([(self.data[i+1]- self.data[i]) / (x[i+1] - x[i])  for i in range(len(self.data)-1)]).mean()
         return hits
+
+    def zero(self):
+        if isinstance(self.data, int):
+            return [0 for i in range(self.data)]
+        elif isinstance(self.data,list) or isinstance(self.data,tuple):
+            if len(self.data) == 2:
+                return [[0 for j in range(self.data[0])] for i in range(self.data[1])]
