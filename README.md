@@ -12,8 +12,6 @@
 
 # mean = lotl(array).mean()
 
-# outlier = lotl(array).outlier()
-
 # slope = lotl(array).slope()
 
 
