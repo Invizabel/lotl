@@ -47,7 +47,7 @@ class lotl:
 
     def outlier(self):
         slope = lotl(self.data).slope()
-        hits = [self.data[i+1] for i in range(len(self.data)-1) if self.data[i] + slope <= self.data[i+1]]
+        hits = [self.data[i+1] for i in range(len(self.data)-1) if self.data[i] + slope < self.data[i+1]]
         return hits
 
     def slope(self):
