@@ -9,6 +9,14 @@ class lotl:
             for j in range(len(self.data[i])):
                 hits.append(self.data[i][j])
         return hits
+
+    
+    def fill(self):
+        if isinstance(self.data, int):
+            return [self.nth for i in range(self.data)]
+        elif isinstance(self.data,list) or isinstance(self.data,tuple):
+            if len(self.data) == 2:
+                return [[self.nth for j in range(self.data[0])] for i in range(self.data[1])]
     
     def flatten(self):
         new_data = self.data
@@ -63,10 +71,3 @@ class lotl:
         x = [i for i in range(1,len(self.data)+1)]
         hits = lotl([(self.data[i+1]- self.data[i]) / (x[i+1] - x[i])  for i in range(len(self.data)-1)]).mean()
         return hits
-
-    def zero(self):
-        if isinstance(self.data, int):
-            return [0 for i in range(self.data)]
-        elif isinstance(self.data,list) or isinstance(self.data,tuple):
-            if len(self.data) == 2:
-                return [[0 for j in range(self.data[0])] for i in range(self.data[1])]
