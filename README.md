@@ -6,14 +6,14 @@
 
 #
 
-# chain (redundant itertools.chain) = lotl(array).chain()
+# chain (redundant itertools.chain) = lotl.chain(array)
 
-# fill (fill a 1D or 2D array) = lotl(int or array,nth=value).zero()
+# fill (fill a 1D or 2D array) = lotl.fill(int or array,nth=value)
 
-# flatten (flatten multi-dimensional array) = lotl(array,nth=0).flatten()
+# flatten (flatten multi-dimensional array) = lotl.flatten(array,nth=0)
 
-# mean (redundant statistics.mean) = lotl(array).mean()
+# mean (redundant statistics.mean) = lotl.mean(array)
 
-# nested total (counts how many layers deep at most an array is) = lotl(array).nested()
+# nested total (counts how many layers deep at most an array is) = lotl.nested(array)
 
-# slope (finds the slope average) = lotl(array).slope()
+# slope (finds the slope average) = lotl.slope(array)
