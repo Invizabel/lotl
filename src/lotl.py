@@ -10,14 +10,6 @@ class lotl:
                 hits.append(self.data[i][j])
         return hits
 
-    
-    def fill(self):
-        if isinstance(self.data, int):
-            return [self.nth for i in range(self.data)]
-        elif isinstance(self.data,list) or isinstance(self.data,tuple):
-            if len(self.data) == 2:
-                return [[self.nth for j in range(self.data[0])] for i in range(self.data[1])]
-    
     def flatten(self):
         new_data = self.data
         if self.nth == -1:
