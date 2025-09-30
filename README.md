@@ -1,2 +1,2 @@
-# lotl is a dns lookup tool
-# python3 -m lotl -host example.com
+# lotl is a experimental data science library!
+

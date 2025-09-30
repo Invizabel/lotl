@@ -1,112 +1,78 @@
-import argparse
-import os
-import re
-import socket
-import ssl
-import urllib.parse
-import urllib.request
-from os import name
+class lotl:
+    def __init__(self,data,nth=-1):
+        self.data = data
+        self.nth = nth
 
-def lotl(host):
-    if name == "nt":
-        os.system("cls")
-    
-    else:
-        os.system("clear")
+    def all(self):
+        for i in range(len(self.data)):
+            if not self.data[i]:
+                return False
+        return True
 
-    count = -1
-    hits = [host]
-    context = ssl.create_default_context()
+    def any(self):
+        for i in range(len(self.data)):
+            if self.data[i]:
+                return True
+        return False
 
-    while True:
-        try:
-            count += 1
-            print(hits[count])
-            
-            # dns
-            dns = socket.gethostbyname_ex(hits[count])
-            hits.append(dns[0])
-            
-            for i in dns[1]:
-                hits.append(i)
-            
-            for i in dns[2]:
-                hits.append(i)
-                try:
-               
-                    hits.append(socket.getnameinfo((i,0),0)[0].split(":")[0])
-                
-                except:
-                    pass
+    def chain(self):
+        hits = []
+        for i in range(len(self.data)):
+            for j in range(len(self.data[i])):
+                hits.append(self.data[i][j])
+        return hits
 
-            # reverse dns
-            reverse_dns = socket.gethostbyaddr(hits[count])
-            hits.append(reverse_dns[0])
-            for i in reverse_dns[1]:
-                hits.append(i)
-            for i in reverse_dns[2]:
-                hits.append(i)
-                try:
-                    hits.append(socket.getnameinfo((i,0),0)[0].split(":")[0])
-                except:
-                    pass
+    def flatten(self):
+        new_data = self.data
+        if self.nth == -1:
+            while True:
+                if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
+                    add = []
+                    for i in new_data:
+                        if isinstance(i,list) or isinstance(i,tuple):
+                            add += i
+                        else:
+                            add.append(i)
+                    new_data = list(add[:])
+                else:
+                    break
+        else:
+            for _ in range(self.nth):
+                if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
+                    add = []
+                    for i in new_data:
+                        if isinstance(i,list) or isinstance(i,tuple):
+                            add += i
+                        else:
+                            add.append(i)
+                    new_data = list(add[:])
+                else:
+                    break
+        return new_data
 
+    def mean(self):
+        return sum(self.data) / len(self.data)
 
-        except IndexError:
-            break
+    def nested(self):
+        count = 0
+        new_data = self.data
+        if self.nth == -1:
+            while True:
+                if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
+                    count += 1
+                    add = []
+                    for i in new_data:
+                        if isinstance(i,list) or isinstance(i,tuple):
+                            add += i
+                        else:
+                            add.append(i)
+                    new_data = list(add[:])
+                else:
+                    break
+        return count
 
-        except:
-            pass
-
-        try:
-            # ssl cert dns
-            tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            tcp_socket.settimeout(10)
-            tcp_socket.connect((hits[count], 443))
-            ssl_socket = context.wrap_socket(tcp_socket, server_hostname = hits[count])
-            cert = ssl_socket.getpeercert()
-            tcp_socket.close()
-            for dns_cert in cert["subject"]:
-                if "commonName" in dns_cert[0]:
-                    hits.append(dns_cert[1].replace("*.", "").split(":")[0])
-
-        except:
-            pass
-
-        try:
-            # ssl cert dns
-            tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            tcp_socket.settimeout(10)
-            tcp_socket.connect((hits[count], 443))
-            ssl_socket = context.wrap_socket(tcp_socket, server_hostname = hits[count])
-            cert = ssl_socket.getpeercert()
-            tcp_socket.close()    
-            for dns_cert in cert["subjectAltName"]:
-                if "DNS" in dns_cert[0]:
-                    hits.append(dns_cert[1].replace("*.", "").split(":")[0])
-
-        except:
-            pass
-
-        try:
-            # Wayback Machine
-            response = urllib.request.urlopen(f"http://web.archive.org/cdx/search/cdx?url=*.{args.host}/*&output=text&fl=original&collapse=urlkey")
-            waybacks = response.read().decode("ascii",errors="ignore").lower().split("\n")
-            for wayback in waybacks:
-                if re.search(r"\S+\.\S+",wayback):
-                    hits.append(urllib.parse.urlparse(wayback).netloc.split(":")[0])
-        
-        except:
-            pass
-
-        hits = list(dict.fromkeys(hits[:]))
-
-    hits = list(dict.fromkeys(hits[:]))
-    hits.sort()
-    return hits
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-host", required = True)
-    args = parser.parse_args()
-    hits = lotl(args.host)
+    def sum(self):
+        hits = 0
+        for i in range(len(self.data)):
+            hits += self.data[i]
+        return hits
