@@ -56,19 +56,18 @@ class lotl:
     def nested(self):
         count = 0
         new_data = self.data
-        if self.nth == -1:
-            while True:
-                if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
-                    count += 1
-                    add = []
-                    for i in new_data:
-                        if isinstance(i,list) or isinstance(i,tuple):
-                            add += i
-                        else:
-                            add.append(i)
-                    new_data = list(add[:])
-                else:
-                    break
+        while True:
+            if any([True if isinstance(i,list) or isinstance(i,tuple) else False for i in new_data]):
+                count += 1
+                add = []
+                for i in new_data:
+                    if isinstance(i,list) or isinstance(i,tuple):
+                        add += i
+                    else:
+                        add.append(i)
+                new_data = list(add[:])
+            else:
+                break
         return count
 
     def sum(self):
