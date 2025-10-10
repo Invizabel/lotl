@@ -51,7 +51,7 @@ class lotl:
         return new_data
 
     def mean(self):
-        return sum(self.data) / len(self.data)
+        return lotl(self.data).sum() / len(self.data)
 
     def nested(self):
         count = 0
@@ -70,6 +70,9 @@ class lotl:
                 break
         return count
 
+    def stdev(self):
+        return (lotl([(i - lotl(self.data).mean()) ** 2 for i in self.data]).sum() / (len(self.data) - 1)) ** (1 / 2)
+    
     def sum(self):
         hits = 0
         for i in range(len(self.data)):
