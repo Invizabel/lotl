@@ -78,3 +78,6 @@ class lotl:
         for i in range(len(self.data)):
             hits += self.data[i]
         return hits
+
+    def zscore(self):
+        return (self.nth - lotl(self.data).mean()) / lotl(self.data).stdev()
