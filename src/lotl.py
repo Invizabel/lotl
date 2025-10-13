@@ -22,6 +22,13 @@ class lotl:
                 hits.append(self.data[i][j])
         return hits
 
+    def diff(self):
+        hits = []
+        self.data.reverse()
+        for i in range(len(self.data)-1):
+            hits.append(self.data[i] - self.data[i+1])
+        return hits
+
     def flatten(self):
         new_data = self.data
         if self.nth == -1:
