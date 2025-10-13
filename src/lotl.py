@@ -18,8 +18,12 @@ class lotl:
     def chain(self):
         hits = []
         for i in range(len(self.data)):
-            for j in range(len(self.data[i])):
-                hits.append(self.data[i][j])
+            if isinstance(self.data[i],list) or isinstance(self.data[i],tuple):
+                for j in range(len(self.data[i])):
+                    hits.append(self.data[i][j])
+            else:
+                hits = self.data
+                break
         return hits
 
     def diff(self):
@@ -93,3 +97,4 @@ class lotl:
         for i in self.data:
             hits.append((i - mean) / stdev)
         return hits
+
