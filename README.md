@@ -1,2 +1,2 @@
-# lotl is a experimental data science library!
+# lotl is an experimental data science library!
 

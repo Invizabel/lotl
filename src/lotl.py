@@ -1,3 +1,5 @@
+import re
+
 class lotl:
     def __init__(self,data,nth=-1):
         self.data = data
@@ -25,6 +27,16 @@ class lotl:
                 hits = self.data
                 break
         return hits
+
+    def dist(self):
+        if isinstance(self.data[0], int) and len(self.data) == 2 or isinstance(self.data[0], float) and len(self.data) == 2 and isinstance(self.data[1], int) and len(self.data) == 2 or isinstance(self.data[1], float) and len(self.data) == 2:
+            return ((self.data[0] - self.data[1]) ** 2) ** (1 / 2)
+        elif isinstance(self.data[0], list) and len(self.data[0]) == 2 or isinstance(self.data[0], tuple) and len(self.data[0]) == 2 and isinstance(self.data[1], list) and len(self.data[0]) == 2 or isinstance(self.data[1], tuple) and len(self.data[1]) == 2:
+            return (((self.data[0][0] - self.data[1][0]) ** 2) + ((self.data[0][1] - self.data[1][1]) ** 2)) ** (1 / 2)
+        elif isinstance(self.data[0], list) and len(self.data[0]) == 3 or isinstance(self.data[0], tuple) and len(self.data[0]) == 3 and isinstance(self.data[1], list) and len(self.data[0]) == 3 or isinstance(self.data[1], tuple) and len(self.data[1]) == 3:
+            return (((self.data[0][0] - self.data[1][0]) ** 2) + ((self.data[0][1] - self.data[1][1]) ** 2) + ((self.data[0][2] - self.data[1][2]) ** 2)) ** (1 / 2)
+        else:
+            return None
 
     def flatten(self):
         new_data = self.data
@@ -81,6 +93,15 @@ class lotl:
         hits = 0
         for i in range(len(self.data)):
             hits += self.data[i]
+        return hits
+
+    def tokenizer(self):
+        hits = []
+        for i in range(1,35):
+            tokens = re.findall(r"\S{1," + str(i) + "}", self.data)
+            for token in tokens:
+                hits.append(token)
+        hits = list(dict.fromkeys(hits[:]))
         return hits
 
     def zscore(self):
