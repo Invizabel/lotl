@@ -97,8 +97,8 @@ class lotl:
 
     def tokenizer(self):
         hits = []
-        for i in range(1,35):
-            tokens = re.findall(r"\S{1," + str(i) + "}", self.data)
+        for i in range(1,self.nth):
+            tokens = re.findall(r"\w{1," + str(i) + "}", self.data)
             for token in tokens:
                 hits.append(token)
         hits = list(dict.fromkeys(hits[:]))
